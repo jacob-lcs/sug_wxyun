@@ -1,0 +1,11 @@
+{
+
+  "navigationBarTitleText": "反馈意见",
+
+  "usingComponents": {
+    "i-card": "/dist/card/index",
+    "i-tabs": "/dist/tabs/index",
+    "i-tab": "/dist/tab/index",
+    "i-drawer": "/dist/drawer/index"
+  }
+}

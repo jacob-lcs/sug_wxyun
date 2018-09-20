@@ -1,0 +1,6 @@
+.about-banner1{
+  margin-top: 5px;
+  margin-left:10px;
+  width: 600rpx;
+  height: 100rpx;
+}

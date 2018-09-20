@@ -1,0 +1,4 @@
+/* pages/home/mycomment/mycomment.wxss */
+@import "/style/weui.wxss";
+@import "../../index/index.wxss";
+@import "/pages/index/index.wxss"

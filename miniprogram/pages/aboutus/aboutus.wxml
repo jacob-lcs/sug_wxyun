@@ -1,0 +1,23 @@
+<!--pages/aboutus/aboutus.wxml-->
+
+<movable-area style="height: 100vh; width: 100vw;">
+ <image class="footImage" src="http://bmob-cdn-20067.b0.upaiyun.com/2018/06/30/d95a1a0a40b2a0838035a7262c5c9639.jpg"></image> 
+  <movable-view style="height: 80vh; width: 100vw;background:white" x="{{x}}" y="{{y}}" direction="vertical" bindchange="onChange" damping="60" friction="5">
+    <view class="scroll_box">
+      <scroll-view class="scrollx" scroll-x style="width: auto;overflow:hidden;">
+        <view class="item_list" wx:for="{{ listData }}" wx:key="index" data-topic="{{item}}" bindtap="goTodetail">
+          <image src='{{ item.img }}'></image>
+          <view class='item_list_buttom'>
+            <view class='tetx-h2'>
+              {{ item.title }}
+            </view>
+            <view class='item_list_buttom_text text-sub2'>
+              {{ item.text }}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </movable-view>
+
+</movable-area>

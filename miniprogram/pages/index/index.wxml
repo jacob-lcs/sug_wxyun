@@ -1,0 +1,97 @@
+<!--index.wxml-->
+<import src="../../style/footer.wxml" />
+
+<navigator class="round-click" url='/pages/suggest/suggest'>
+  +
+</navigator>
+
+<view class="round-click1" bindtap="toggleLeft1">
+  ≡
+</view>
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">搜索</view>
+    </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<i-drawer mode="left" visible="{{showLeft1}}" bind:close="toggleLeft1">
+  <view class='chouti'>
+    <view class='bkct'>
+      <image class='touxiang' style="background-image: url({{avatarUrl}})"></image>
+      <text>\n</text>
+      <view class='user'>
+        <text>{{username}}</text>
+      </view>
+    </view>
+    <view class='zhengwen'>
+      <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/efece59940556cc6809205ca6a457077.png'></image>
+      <text class='xuanze' bindtap='fabu'>我的发布\n</text>
+      <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/1478aa2e40e16da58072b7707141141a.png'></image>
+      <text class='xuanze' bindtap='pl'>我的评论\n</text>
+      <!-- <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/89e7d356405645ff805fdbb5c4bf51f3.png'></image>
+      <text class='xuanze'>我的消息\n</text> -->
+      <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/bd593848403f6b15803b7e9b976ce280.png'></image>
+      <text class='xuanze' bindtap='change'>切换账号\n</text>
+    </view>
+    <image class='icon2' bindtap='home' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/746e6ac940d9c7e9801ffad64c874593.png' style='margin-bottom:30rpx;'></image>
+    <image class='icon3' bindtap='aboutus' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/38bd436740d30c2080650d7b80e52807.png' style='margin-bottom:30rpx;'></image>
+  </view>
+</i-drawer>
+<i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll">
+  <i-tab key="全部" title="全部"></i-tab>
+  <i-tab key="教学" title="教学"></i-tab>
+  <i-tab key="后勤" title="后勤"></i-tab>
+  <i-tab key="课余" title="课余"></i-tab>
+  <i-tab key="其他" title="其他"></i-tab>
+</i-tabs>
+
+<view class="page">
+  <scroll-view lower-threshold="800" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;  ">
+    <view class="page__bd">
+      <view class="weui-panel">
+        <view class="weui-panel__hd">帖子列表（{{textList.length}}条）
+          <view class='paixu'>
+            <text space='ensp' bindtap='shijian'> 按时间降序</text>
+            <text bindtap='zanpai'> 按赞降序</text>
+          </view>
+        </view>
+        <view class="weui-panel__bd">
+          <block wx:if="{{textList.length>0}}">
+            <navigator class='i-card' wx:for="{{textList}}" wx:key="textItem" url="/pages/index/detail/index?objectId={{item._id}}">
+              <i-card title="{{item.name}}" extra="{{item.ding}}人赞过 · {{item.classes}}" thumb = "{{item.avatarUrl}}">
+                <view class="zw" slot="content">{{ item.content }}</view>
+              </i-card>
+            </navigator>
+
+          </block>
+          <block wx:else>
+            <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">
+                暂无内容，欢迎给我们提出建议</view>
+              <view class="weui-media-box__desc"></view>
+
+            </view>
+          </block>
+
+        </view>
+      </view>
+    </view>
+    <view class="page__ft">
+      <view class="page__bd page__bd_spacing">
+        <view class="weui-footer ">
+          <view class="weui-footer__text">Copyright © 2018 权益中心</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,5 @@
+<!--miniprogram/pages/home/home.wxml-->
+<text>miniprogram/pages/home/home.wxml</text>
+
+<button type="default" size="{{defaultSize}}" loading="{{loading}}" plain="{{plain}}"
+		disabled="{{disabled}}" bindtap="addtodo" hover-class="other-button-hover"> add a todo </button>

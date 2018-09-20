@@ -1,0 +1,24 @@
+<!--pages/suggest/suggest.wxml-->
+
+<view class='zong'>
+<text>\n</text>
+  <view class='sug_xz'>
+    <text>\n</text>
+    <text class='fankui'>*反馈类别选择：</text>
+    <view class='xuank'>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}" wx:key="item">
+          <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          <!-- <text decode="{{true}}"> &nbsp;&nbsp;</text> -->
+        </label>
+      </radio-group>
+    </view>
+    <text>\n</text>
+    <text class='fankui'>*我要说：</text>
+    <!-- <input class="sug_in" value='{{suggestion}}' bindinput="sugInput" /> -->
+    <view class="sug_in">
+      <textarea value='{{suggestion}}' bindinput="sugInput"  placeholder='最长输入140字哦' />
+    </view>
+    <button class='btn' hover-class='btn_hover' bindtap="loginBtnClick">发 布</button>
+  </view>
+</view>

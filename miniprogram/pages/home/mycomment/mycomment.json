@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText":"我的评论",
+  "usingComponents": {
+    "i-card": "/dist/card/index"
+  }
+}

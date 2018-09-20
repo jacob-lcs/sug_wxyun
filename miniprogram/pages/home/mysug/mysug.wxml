@@ -1,0 +1,38 @@
+<!--pages/home/mysug/mysug.wxml-->
+
+
+<view class="page">
+  <scroll-view lower-threshold="800" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;  ">
+    <view class="page__bd">
+      <view class="weui-panel">
+        <view class="weui-panel__hd">帖子列表（{{rows.length}}条）</view>
+        <view class="weui-panel__bd">
+          <block wx:if="{{rows.length>0}}">
+            <navigator class='i-card' wx:for="{{rows}}" wx:key="textItem" url="/pages/index/detail/index?objectId={{item.objectId}}">
+              <i-card title="{{item.writer}}" extra="{{item.ding}}人赞过 · {{item.classes}}" thumb="http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/b22d90db40e019ae80311275b3c1db7e.jpg">
+                <view class="zw" slot="content">{{ item.content }}</view>
+              </i-card>
+            </navigator>
+
+          </block>
+          <block wx:else>
+            <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">
+                暂无内容，欢迎给我们提出建议</view>
+              <view class="weui-media-box__desc"></view>
+
+            </view>
+          </block>
+
+        </view>
+      </view>
+    </view>
+    <view class="page__ft">
+      <view class="page__bd page__bd_spacing">
+        <view class="weui-footer ">
+          <view class="weui-footer__text">Copyright © 2018 权益中心</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

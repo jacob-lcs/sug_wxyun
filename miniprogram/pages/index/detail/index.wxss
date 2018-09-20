@@ -1,0 +1,119 @@
+/* pages/index/detail/index.wxss */
+@import "../../../style/weui.wxss";
+
+page {
+  background-color: #fff;
+}
+
+.node_wrap {
+  position: absolute;
+  top: 354rpx;
+  display: block;
+  background-color: #fff;
+  width: 100%; 
+  border-radius: 50rpx 50rpx 0 0;
+}
+
+.Title {
+  font-weight: bold;
+  margin-top: 32rpx;
+  padding: 0rpx 40rpx;
+}
+
+.titles {
+  display: flex;
+  margin: 30rpx 40rpx 60rpx 40rpx;
+}
+
+.titles image {
+  /* flex: 0 0 60rpx; */
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 40%;
+}
+
+.titles view {
+  display: flex;
+  flex-direction: column;
+  height: 100rpx;
+}
+
+.author {
+  padding: 0;
+  line-height: 0.7;
+  margin-left: 20rpx;  
+}
+
+.author {
+  font-size: 20px;
+}
+
+.zans{
+  margin-top: 15rpx;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+}
+
+.timer {
+  margin-top: 40rpx;
+  margin-right: 40rpx;
+  text-align: right;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.text_content{
+  margin-left: 40rpx;
+  margin-right: 30rpx;
+}
+
+.foot {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 30rpx 40rpx 60rpx 40rpx;
+}
+
+.foot image {
+  /* flex: 0 0 60rpx; */
+  margin-left: 30rpx;
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.nodeStyle {
+  position: relative;
+  display: block;
+  background-color: #fff;
+  margin: 50rpx 0;
+}
+
+.imgStyle {
+  margin: 20rpx 0;
+}
+
+.textStyle {
+  margin: 40rpx;
+}
+
+.h2Style{
+  margin: 60rpx 40rpx 20rpx 40rpx;
+}
+
+.fimgStyle{
+  max-width: calc(100% - 80rpx);
+  margin: 10rpx 40rpx;
+}
+
+.titleImage{
+  /* background-image: linear-gradient(to bottom,#20B2AA,white); */
+   background-image: url('http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/fc481f5640dd378280fd3ec6148a8903.png');
+  background-size: 750rpx;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-repeat:no-repeat;
+  background-position: center;
+}
+
