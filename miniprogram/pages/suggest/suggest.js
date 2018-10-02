@@ -70,11 +70,12 @@ Page({
             due: new Date(),
             content: new String(this.data.suggestion),
             writer: new String(app.globalData.userInfo._id),
-            name: new String(app.globalData.nickName),
+            name: new String(app.globalData.userInfo.nickName),
             viewed: new Number(0),
             ding: new Number(0),
             checked: false,
-            avatarUrl: new String(app.globalData.avatarUrl)
+            avatarUrl: new String(app.globalData.userInfo.avatarUrl),
+            deleted: false
           },
           success: function(res) {
             // 成功反馈建议

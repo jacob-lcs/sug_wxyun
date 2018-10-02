@@ -17,42 +17,19 @@ Page({
         text: '2013年建成的第三代集群式高性能计算机“自强4000”共有162个节点机，2480个计算核。',
 
       },
-      {
-        title: '热评文章',
-        topic: '数码',
-        img: 'http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/ed369dd040bd000c80f37478970489b8.png',
-        text: '针对当下的科技数码大事件作出评论，对新鲜产品第一时间上手体验，分享第一手的观点与感受，既有深度又有风度。',
-        total: "",
-        time: ""
-      }
     ],
     textList: [],
     listNum: 0,
     showLeft1: false,
     x: app.globalData.windowWidth * 0.8 * 0.3,
     y: 30,
-    userinfo:null
+    userinfo: null
   },
 
-  fankui:function(){
-    console.log('appglobaldata: ',app.globalData.nickName, this.data.username)
-    if (app.globalData.nickName == ''){
-      wx.showModal({
-        title: '提示',
-        content: '请点击右下方按钮登录',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
-    }
+  fankui: function() {
+    wx.navigateTo({
+      url: '/pages/index/index',
+    })
   },
 
   setDisabled: function(e) {
@@ -108,9 +85,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
-    if (app.globalData.userInfo) {
 
+    if (app.globalData.userInfo) {
       this.setData({
         username: app.globalData.userInfo.nickName
       })
@@ -153,8 +129,8 @@ Page({
   },
   toggleLeft1() {
     this.setData({
-      username: app.globalData.nickName,
-      avatarUrl: app.globalData.avatarUrl
+      username: app.globalData.userInfo.nickName,
+      avatarUrl: app.globalData.userInfo.avatarUrl
     })
     this.setData({
       showLeft1: !this.data.showLeft1

@@ -1,5 +1,6 @@
 // pages/home/mysug/mysug.js
 var app = getApp();
+const db = wx.cloud.database()
 
 Page({
 
@@ -7,27 +8,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-
     rows:[],
-  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (e) {
-
-    console.log('e:',e)
-    const query2 = Bmob.Query("text");
-    query2.equalTo("writer", "==", app.globalData.userInfo.username);
-    query2.find().then(res => {
-      console.log('mysug_res', res)
-      this.setData({
-        rows: res
+    const _ = app.globalData.db.command
+    app.globalData.db.collection('qyzx_texts').where({
+      // gt 方法用于指定一个 "大于" 条件，此处 _.eq()是获取与其相等的项
+      _openid: _.eq(app.globalData.userInfo._openid),
+      deleted: false
+    })
+      .get({
+        success: function (res) {
+          console.log("查询结果: ", res.data);
+          this.setData({
+            rows: res.data
+          });
+          // console.log("rows的值为：", this.data.rows)
+        }
       })
-    });
 
-
+    
   },
 
   /**

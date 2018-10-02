@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+const db = wx.cloud.database()
 var common = require('../../dist/common.js');
 
 var app = getApp();
@@ -20,7 +21,21 @@ Page({
     username: '',
     avatarUrl: ''
   },
-
+  hideInput: function() {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+    getLike(this);
+    this.onShow();
+  },
+  clearInput: function() {
+    this.setData({
+      inputVal: ""
+    });
+    getLike(this);
+    this.onShow();
+  },
   change: function() {
     wx.navigateTo({
       url: '/pages/home/login/login',
@@ -47,8 +62,8 @@ Page({
 
   toggleLeft1() {
     this.setData({
-      username: app.globalData.nickName,
-      avatarUrl: app.globalData.avatarUrl
+      username: app.globalData.userInfo.nickName,
+      avatarUrl: app.globalData.userInfo.avatarUrl
     })
     this.setData({
       showLeft1: !this.data.showLeft1
@@ -113,17 +128,31 @@ Page({
 
     if (app.globalData.userInfo != null) {
       this.setData({
-        username: app.globalData.userInfo._id
+        username: app.globalData.userInfo.nickName
       })
     }
 
   },
 
-  onShareAppMessage: function() {
+  onShareAppMessage: function() {},
+
+
+  onLoad: function() {},
+
+  showInput: function() {
+    this.setData({
+      inputShowed: true
+    });
   },
 
 
-  onLoad: function() {
+
+  inputTyping: function(e) {
+    //搜索数据
+    getLike(this, e.detail.value);
+    this.setData({
+      inputVal: e.detail.value
+    });
   },
 
   //按时间排序
@@ -139,8 +168,8 @@ Page({
         })
     } else {
       texts_collection.where({
-        classes: this.data.current_scroll
-      }).orderBy('due', 'desc')
+          classes: this.data.current_scroll
+        }).orderBy('due', 'desc')
         .get().then(res => {
           this.setData({
             textList: res.data
@@ -169,8 +198,8 @@ Page({
         })
     } else {
       texts_collection.where({
-        classes: this.data.current_scroll
-      }).orderBy('ding', 'desc')
+          classes: this.data.current_scroll
+        }).orderBy('ding', 'desc')
         .get().then(res => {
           this.setData({
             textList: res.data
@@ -180,3 +209,28 @@ Page({
 
   }
 })
+
+function getLike(t, k) {
+  that = t;
+  db.collection('qyzx_texts').where({
+      deleted: false
+    })
+    .get({
+      success: function(res) {
+        console.log("获取成功，数据为： ", res.data)
+        var i;
+        var test = [];
+        for (i = 0; i < res.data.length; i++) {
+          if (res.data[i].content.indexOf(k) >= 0) {
+            console.log("成功");
+            test[test.length] = res.data[i]
+            that.setData({
+              textList: null,
+              textList: test,
+            })
+          };
+        }
+      }
+    })
+  console.log("TextList", t.data.textList)
+}

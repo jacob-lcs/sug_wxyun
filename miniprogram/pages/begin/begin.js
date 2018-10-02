@@ -12,7 +12,6 @@ var pageObject = {
     app.globalData.userInfo = e.detail.userInfo
 
 
-    var lcs = 0
     const _ = app.globalData.db.command
     app.globalData.db.collection('qyzx_users').where({
         // gt 方法用于指定一个 "大于" 条件，此处 _.eq()是获取与其相等的项

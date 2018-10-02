@@ -17,20 +17,6 @@ Page({
 
   //点击按钮指定的hiddenmodalput弹出框  
   modalinput: function() {
-    if (app.globalData.userInfo==null){
-      wx.showModal({
-        title: '提示',
-        content: '请先登录',
-        success: function (res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/home/login/login',
-            })
-          } else if (res.cancel) { }
-        }
-      })
-      return;
-    }
     this.setData({
       hiddenmodalput: !this.data.hiddenmodalput
     })
@@ -60,9 +46,9 @@ Page({
       // data 字段表示需新增的 JSON 数据
       data: {
         due: new Date(),
-        content: new String(this.data.pinglun),
-        commentator: new String(app.globalData.userInfo._id),
-        textID: new String(this.data.textId)
+        content: this.data.pinglun,
+        commentator: app.globalData.userInfo.nickName,
+        textID: this.data.textId
       },
       success: function(res) {
         console.log(res)
@@ -187,67 +173,6 @@ Page({
         })
       }
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const qu1 = Bmob.Query("ding");
-    // qu1.equalTo("textID", "==", this.data.objectId);
-    // qu1.equalTo("userID", "==", app.globalData.userInfo.objectId);
-    // qu1.find().then(res => {
-    //   if (res.length != 0) {
-    //     wx.showModal({
-    //       title: '提示',
-    //       content: '每个人只能赞一次哦',
-    //       success: function(res) {
-    //         if (res.confirm) {
-    //           console.log('用户点击确定')
-    //         } else if (res.cancel) {
-    //           console.log('用户点击取消')
-    //         }
-    //       }
-    //     })
-    //   } else {
-    //     var zant = this.data.zans + 1;
-    //     this.setData({
-    //       zans: zant
-    //     })
-
-    //     var query = Bmob.Query('ding');
-    //     query.set("textID", this.data.objectId)
-    //     query.set("userID", app.globalData.userInfo.objectId)
-    //     query.save().then(res => {
-    //       console.log(res)
-    //     }).catch(err => {
-    //       console.log(err)
-    //     })
-    //     var qu = Bmob.Query('text');
-    //     qu.get(this.data.objectId).then(res => {
-
-    //       console.log('resviews__', res.viewed)
-    //       res.set('ding', res.ding + 1)
-    //       this.data.rows.ding = res.ding + 1
-    //       res.save()
-    //     }).catch(err => {
-    //       console.log(err)
-    //     })
-    //   }
-    // });
   },
 
   onLoad: function(e) {
