@@ -29,16 +29,9 @@ Page({
     textList: [],
     listNum: 0,
     showLeft1: false,
-    username: '',
     x: app.globalData.windowWidth * 0.8 * 0.3,
     y: 30,
-    defaultSize: 'default',
-    primarySize: 'default',
-    warnSize: 'default',
-    disabled: false,
-    plain: false,
-    loading: false,
-    avatarUrl:'',
+    userinfo:null
   },
 
   fankui:function(){
@@ -104,12 +97,6 @@ Page({
     })
   },
 
-  change: function() {
-    console.log("aaaa")
-    wx.navigateTo({
-      url: '/pages/home/login/login',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -125,7 +112,7 @@ Page({
     if (app.globalData.userInfo) {
 
       this.setData({
-        username: app.globalData.userInfo._id
+        username: app.globalData.userInfo.nickName
       })
     }
   },
