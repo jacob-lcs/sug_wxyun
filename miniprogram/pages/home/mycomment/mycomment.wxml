@@ -5,8 +5,8 @@
         <view class="weui-panel__bd">
           <block wx:if="{{rows.length>0}}">
             <navigator class='i-card' wx:for="{{rows}}" wx:key="textItem" url="/pages/index/detail/index?objectId={{item.textID}}">
-              <i-card title="{{item.commentator}}" extra="{{item.createdAt}}" thumb="http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/b22d90db40e019ae80311275b3c1db7e.jpg">
-                <view class="zw" slot="content">{{ item.comment }}</view>
+              <i-card title="{{item.commentator}}" extra="{{item.due}}" thumb="{{avatarUrl}}">
+                <view class="zw" slot="content">{{ item.content }}</view>
               </i-card>
             </navigator>
 
