@@ -64,9 +64,9 @@
       <text>反馈建议</text>
     </view>
 
-    <view class="grid_item item2">
-      <image src="http://bmob-cdn-20067.b0.upaiyun.com/2018/06/30/f645525940773a028075686dc3a6c95c.png"></image>
-      <text>敬请期待</text>
+    <view class="grid_item item2" bindtap='contact'>
+      <image src="https://suggestion-41375c.tcb.qcloud.la/img/电话键盘 (1).png?sign=9a905848e828ea0b7492fdb2d5234453&t=1539001110"></image>
+      <text>教师联系方式</text>
     </view>
 
     <view class="grid_item item3">

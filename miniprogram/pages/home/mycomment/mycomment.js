@@ -15,21 +15,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    // const query2 = Bmob.Query("comment");
-    // query2.equalTo("commentator", "==", app.globalData.userInfo.username);
-    // console.log("userId", app.globalData.userInfo.username)
-    // query2.order("-createdAt");
-    // query2.find().then(res => {
-    //   console.log('mysug_res', res)
-    //   this.setData({
-    //     rows: res
-    //   })
-    // });
     const _ = app.globalData.db.command
     app.globalData.db.collection('qyzx_comments').where({
       // gt 方法用于指定一个 "大于" 条件，此处 _.eq()是获取与其相等的项
       _openid: _.eq(app.globalData.userInfo._openid),
-      // deleted: false
+      deleted: false
     })
       .get().then(res => {
         this.setData({

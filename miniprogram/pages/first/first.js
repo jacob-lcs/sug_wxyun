@@ -54,6 +54,12 @@ Page({
     })
   },
 
+  contact:function(){
+    wx.navigateTo({
+      url: '/pages/contact/index',
+    })
+  },
+
   fabu: function() {
     wx.navigateTo({
       url: '/pages/home/mysug/mysug',

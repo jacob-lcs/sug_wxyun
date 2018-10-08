@@ -9,6 +9,9 @@ App({
         traceUser: true,
       })
     }
+    wx.cloud.init({
+      env: 'suggestion'
+    })
 
 
     var that = this

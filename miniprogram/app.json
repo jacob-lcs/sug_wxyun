@@ -8,7 +8,9 @@
     "pages/suggest/suggest",
     "pages/home/mysug/mysug",
     "pages/aboutus/aboutus",
-    "pages/home/mycomment/mycomment"
+    "pages/home/mycomment/mycomment",
+    "pages/contact/index",
+    "pages/logs/logs"
     
   ],
   "data": {

@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+
 const db = wx.cloud.database()
 var common = require('../../dist/common.js');
 
@@ -115,17 +116,6 @@ Page({
 
   onReady: function(e) {
 
-    console.log(app.globalData.userInfo)
-
-    app.globalData.db.collection('qyzx_texts').orderBy('ding', 'desc')
-      .get().then(res => {
-        console.log('按赞排序后：', res.data)
-        this.setData({
-          'textList': res.data
-        })
-        console.log('textList:', this.data.textList)
-      })
-
     if (app.globalData.userInfo != null) {
       this.setData({
         username: app.globalData.userInfo.nickName
@@ -158,7 +148,7 @@ Page({
   //按时间排序
   shijian: function() {
 
-    const texts_collection = app.globalData.db.collection('qyzx_texts')
+    const texts_collection = db.collection('qyzx_texts')
     if (this.data.current_scroll == "全部") {
       texts_collection.orderBy('due', 'desc')
         .get().then(res => {
@@ -187,7 +177,7 @@ Page({
 
   onShow: function() {
 
-    const texts_collection = app.globalData.db.collection('qyzx_texts')
+    const texts_collection = db.collection('qyzx_texts')
 
     if (this.data.current_scroll == "全部") {
       texts_collection.orderBy('ding', 'desc')

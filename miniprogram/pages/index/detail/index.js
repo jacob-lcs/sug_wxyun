@@ -1,6 +1,6 @@
 // pages/index/detail/index.js
 var app = getApp();
-
+let that = this
 Page({
   data: {
     rows: {},
@@ -48,7 +48,8 @@ Page({
         due: new Date(),
         content: this.data.pinglun,
         commentator: app.globalData.userInfo.nickName,
-        textID: this.data.textId
+        textID: this.data.textId,
+        deleted: false
       },
       success: function(res) {
         console.log(res)
@@ -105,20 +106,6 @@ Page({
   },
 
   zan: function(e) {
-    if (app.globalData.userInfo == null) {
-      wx.showModal({
-        title: '提示',
-        content: '请先登录',
-        success: function(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/home/login/login',
-            })
-          } else if (res.cancel) {}
-        }
-      })
-      return;
-    }
     const praise_collection = app.globalData.db.collection('qyzx_praise');
 
     praise_collection.where({
@@ -147,7 +134,7 @@ Page({
             ding: _.inc(1)
           },
           success: function(res) {
-            console.log(res)
+            console.log("数据更新成功！",res)
           }
         })
 

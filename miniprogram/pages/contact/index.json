@@ -1,0 +1,11 @@
+{
+"navigationBarTitleText": "联系方式",
+
+"usingComponents": {
+  "wux-card": "../../dist/card1/index",
+  "wux-wing-blank": "../../dist/wing-blank/index",
+  
+  "wux-search-bar": "../../dist/search-bar/index"
+}
+
+}
