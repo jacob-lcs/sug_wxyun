@@ -16,9 +16,10 @@ Page({
    */
   onLoad: function(e) {
     const _ = app.globalData.db.command
+    console.log('app.globalData.userInfo._openid', app.globalData.userInfo._openid)
     app.globalData.db.collection('qyzx_texts').where({
       // gt 方法用于指定一个 "大于" 条件，此处 _.eq()是获取与其相等的项
-      _openid: _.eq(app.globalData.userInfo._openid),
+      _openid: _.eq(app.globalData.openid),
       deleted: false
     })
       .get().then(res => {

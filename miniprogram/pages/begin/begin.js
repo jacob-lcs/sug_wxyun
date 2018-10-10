@@ -5,9 +5,19 @@ var pageObject = {
   data: {
 
   },
+  log_in: function(){
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        console.log('callFunction test result: ', res)
+        app.globalData.openid = res.result.openid
+        // console.log(app.globalData.openid)
+      }
+    })
+  },
   onGotUserInfo: function(e) {
     console.log(e.detail.errMsg)
-    console.log(e.detail.userInfo)
+    console.log('e.detail.userInfo', e.detail.userInfo._openid)
     console.log(e.detail.rawData)
     app.globalData.userInfo = e.detail.userInfo
 

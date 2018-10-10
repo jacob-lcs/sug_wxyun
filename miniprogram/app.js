@@ -36,5 +36,6 @@ App({
     windowWidth: 0,
     windowHeight: 0,
     db: null,
+    openid: ''
   }
 })
