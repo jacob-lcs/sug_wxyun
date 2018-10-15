@@ -1,62 +1,25 @@
 <!--index.wxml-->
-<view class = "all_settings">
-  <view class= 'top-model'>
-  <view class="page1">
-    <view class="page__bd">
-        <wux-search-bar maxlength="8" />   
+<view class="all_settings">
+  <view class='top-model'>
+    <view class="page1">
+      <view class="page__bd">
+        <wux-search-bar maxlength="8" />
+      </view>
     </view>
-</view>
   </view>
 
-<view class = 'main_model' >
-<view class="page">
-    <view class="page__bd"> 
+  <view class='main_model'>
+    <view class="page" wx:for="{{teacher_info}}">
+      <view class="page__bd">
         <wux-wing-blank size="default">
-            <wux-card title="李青" extra="东区计803" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538751849874&di=f299fcc7f111ed07fb2f571714f13060&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F57%2F93%2F24%2F58fad50fe168c.png">
-                <view slot="body" bindtap='bind_tal1'> 电话：18812345678 </view>
-                <view slot="footer" bindtap='copyText1' data-text="{{contents1}}">
-                邮箱：liqing@shu.edu.cn</view>
-            </wux-card>
+          <wux-card title="{{item.name}}" extra="{{item.room}}" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538751849874&di=f299fcc7f111ed07fb2f571714f13060&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F57%2F93%2F24%2F58fad50fe168c.png">
+            <view slot="body" bindtap='bind_tal' data-text="{{item.phone}}"> 电话：{{item.phone}} </view>
+            <view slot="footer" bindtap='copyText' data-text="{{item.email}}">
+              邮箱：{{item.email}}</view>
+          </wux-card>
         </wux-wing-blank>
+      </view>
     </view>
+  </view>
+  <view class="footer_copyright">Copyright © 2018 权益中心</view>
 </view>
-<view class="page">
-    <view class="page__bd"> 
-        <!--<view class="sub-title">Thumb</view>-->
-        <wux-wing-blank size="default">
-            <wux-card title="欧阳山" extra="东区" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538751849874&di=f299fcc7f111ed07fb2f571714f13060&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F57%2F93%2F24%2F58fad50fe168c.png">
-                <view slot="body" bindtap='bind_tal2'> 电话：186666666 </view>
-                <view slot="footer" bindtap='copyText2' data-text="{{contents2}}">
-                邮箱：liqing@shu.edu.cn</view>
-            </wux-card>
-        </wux-wing-blank>
-    </view>
-</view>
-<view class="page">
-    <view class="page__bd"> 
-        <!--<view class="sub-title">Thumb</view>-->
-        <wux-wing-blank size="default">
-            <wux-card title="某某某" extra="新世纪35号" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538751849874&di=f299fcc7f111ed07fb2f571714f13060&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F57%2F93%2F24%2F58fad50fe168c.png">
-                <view slot="body" bindtap='bind_tal3'> 电话：18817259503 </view>
-                <view slot="footer" bindtap='copyText3' data-text="{{contents3}}">
-                邮箱：xxx@shu.edu.cn</view>
-            </wux-card>
-        </wux-wing-blank>
-    </view>
-</view>
-<view class="page">
-    <view class="page__bd"> 
-        <!--<view class="sub-title">Thumb</view>-->
-        <wux-wing-blank size="default">
-            <wux-card title="院长" extra="东区" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538751849874&di=f299fcc7f111ed07fb2f571714f13060&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F57%2F93%2F24%2F58fad50fe168c.png">
-                <view slot="body" bindtap='bind_tal4'> 电话：18866665678 </view>
-                <view slot="footer" bindtap='copyText4' data-text="{{contents4}}">
-                邮箱：liqing@shu.edu.cn</view>
-            </wux-card>
-        </wux-wing-blank>
-    </view>
-</view>
-</view>
-<view class="footer_copyright">Copyright © 2018 权益中心</view>
-</view>
-

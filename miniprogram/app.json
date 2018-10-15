@@ -1,6 +1,7 @@
 {
   "cloud": true,
   "pages": [
+    "pages/contact/index",
     "pages/begin/begin",
     "pages/first/first",
     "pages/index/index",
@@ -9,7 +10,7 @@
     "pages/home/mysug/mysug",
     "pages/aboutus/aboutus",
     "pages/home/mycomment/mycomment",
-    "pages/contact/index",
+    
     "pages/logs/logs"
     
   ],
