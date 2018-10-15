@@ -1,1 +1,47 @@
-/* miniprogram/pages/begin/begin.wxss */
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.container{
+  height: 100vh;
+  background-image: url('http://bmob-cdn-21691.b0.upaiyun.com/2018/10/11/049a2c0540967be880d018e484310a21.jpg');
+  background-repeat: round;
+  color: #ffffff;
+}
+
+.test{
+  width: 300rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  box-shadow: 4rpx 1rpx 1rpx #cccccc;
+  color: #ffffff;
+  margin-top: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60vh
+}

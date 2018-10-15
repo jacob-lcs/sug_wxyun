@@ -1,6 +1,7 @@
 // pages/index/detail/index.js
 var app = getApp();
 let that = this
+const db = wx.cloud.database();
 Page({
   data: {
     rows: {},
@@ -110,7 +111,7 @@ Page({
 
     praise_collection.where({
       'textID': this.data.textId,
-      'userID': app.globalData.userInfo._id
+      'userID': app.globalData.openid
     }).get().then(res => {
       console.log("赞记录", res)
       if (res.data.length == 0) {
@@ -119,7 +120,7 @@ Page({
           data: {
             due: new Date(),
             textID: new String(this.data.textId),
-            userID: new String(app.globalData.userInfo._id)
+            userID: new String(app.globalData.openid)
           },
           success: function(res) {
             // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
@@ -127,18 +128,32 @@ Page({
           }
         })
         const _ = app.globalData.db.command;
-        var text_doc = app.globalData.db.collection('qyzx_texts').doc(this.data.textId)
-        text_doc.update({
+        // var text_doc = app.globalData.db.collection('qyzx_texts').doc(this.data.textId)
+        // console.log("text_doc", text_doc)
+        var d = this.data.zans
+        console.log("d", d)
+        // text_doc.update({
+        //   data: {
+        //     // 将赞自增 1
+        //     // ding: _.inc(1)
+        //     ding: d + 1
+        //   },
+        //   success: function(res) {
+        //     console.log("数据更新成功！",res)
+        //   }
+        // })
+        db.collection('qyzx_texts').doc(this.data.textId).update({
+          // data 传入需要局部更新的数据
           data: {
-            // 将赞自增 1
-            ding: _.inc(1)
+            // 表示将 done 字段置为 true
+            ding: d + 1
           },
-          success: function(res) {
-            console.log("数据更新成功！",res)
+          success: function (res) {
+            console.log("update", res.data)
           }
         })
 
-        text_doc.get().then(res => {
+        db.collection('qyzx_texts').doc(this.data.textId).get().then(res => {
           console.log('刷新:', res.data)
           this.setData({
             zans: res.data.ding
@@ -165,6 +180,7 @@ Page({
   onLoad: function(e) {
     // 页面初始化 objectId为页面跳转所带来的参数
     var textId = e.objectId;
+    console.log("e", e)
     var that = this;
     console.log('onload执行')
     const _ = app.globalData.db.command

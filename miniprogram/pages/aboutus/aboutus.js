@@ -35,8 +35,8 @@ Page({
       },
       {
         title: 'WQM',
-        img: 'https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/王琦梦.jpg?sign=832afd5135455d607fb742863b7a8049&t=1539188390',
-        text: '我不要脱发！！！',
+        img: 'https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/王琦梦.png?sign=1ac9124bc5e44016703103847ef7f886&t=1539188767',
+        text: 'Hair and You',
 
       },
       {
