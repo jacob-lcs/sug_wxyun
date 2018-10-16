@@ -1,19 +1,19 @@
 // pages/index/detail/index.js
 var app = getApp();
 let that = this
-const db = wx.cloud.database();
+
 Page({
   data: {
     rows: {},
-    rows_due:'',
+    rows_due: '',
     zans: 0,
     PlId: '',
     textId: '',
     textList: [],
     pinglun: '',
     hiddenmodalput: true,
-    commentList:{},
-    comment_due:''
+    commentList: {},
+    comment_due: ''
   },
 
   //点击按钮指定的hiddenmodalput弹出框  
@@ -107,75 +107,117 @@ Page({
   },
 
   zan: function(e) {
-    const praise_collection = app.globalData.db.collection('qyzx_praise');
-
-    praise_collection.where({
-      'textID': this.data.textId,
-      'userID': app.globalData.openid
-    }).get().then(res => {
-      console.log("赞记录", res)
-      if (res.data.length == 0) {
-        //用户未赞过该帖子
-        praise_collection.add({
-          data: {
-            due: new Date(),
-            textID: new String(this.data.textId),
-            userID: new String(app.globalData.openid)
-          },
-          success: function(res) {
-            // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-            console.log('add zan ', res)
-          }
+    const _ = app.globalData.db.command
+    const teacher_info = app.globalData.db.collection('qyzx_texts');
+    console.log("这个文章的ID为：", this.data.textId)
+    var d = this.data.zans
+    wx.cloud.callFunction({
+      name: 'zan',
+      data:{
+        zans: d+1,
+        id: this.data.textId
+      },
+      success: res => {
+        wx.showToast({
+          title: '点赞成功',
         })
-        const _ = app.globalData.db.command;
-        // var text_doc = app.globalData.db.collection('qyzx_texts').doc(this.data.textId)
-        // console.log("text_doc", text_doc)
-        var d = this.data.zans
-        console.log("d", d)
-        // text_doc.update({
-        //   data: {
-        //     // 将赞自增 1
-        //     // ding: _.inc(1)
-        //     ding: d + 1
-        //   },
-        //   success: function(res) {
-        //     console.log("数据更新成功！",res)
-        //   }
-        // })
-        db.collection('qyzx_texts').doc(this.data.textId).update({
-          // data 传入需要局部更新的数据
-          data: {
-            // 表示将 done 字段置为 true
-            ding: d + 1
-          },
-          success: function (res) {
-            console.log("update", res.data)
-          }
+        this.setData({
+          datas: D
         })
 
-        db.collection('qyzx_texts').doc(this.data.textId).get().then(res => {
-          console.log('刷新:', res.data)
-          this.setData({
-            zans: res.data.ding
-          })
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '点赞失败',
         })
-
-      } else {
-        //用户已经赞过该帖子
-        wx.showModal({
-          title: '提示',
-          content: '每个人只能赞一次哦',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+        console.error('[云函数]  调用失败：', err)
       }
     })
+    // teacher_info.doc(this.data.textId).update({
+    //   data: {
+    //     ding: _.inc(1)
+    //   },
+    //   success: function(res){
+    //     console(res.data)
+    //   }
+    // })
+    this.setData({
+      zans: d+1
+    })
   },
+  // zan: function(e) {
+  //   const praise_collection = app.globalData.db.collection('qyzx_praise');
+
+  //   praise_collection.where({
+  //     'textID': this.data.textId,
+  //     'userID': app.globalData.openid
+  //   }).get().then(res => {
+  //     console.log("赞记录", res)
+  //     if (res.data.length == 0) {
+  //       //用户未赞过该帖子
+  //       praise_collection.add({
+  //         data: {
+  //           due: new Date(),
+  //           textID: new String(this.data.textId),
+  //           userID: new String(app.globalData.openid)
+  //         },
+  //         success: function(res) {
+  //           // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+  //           console.log('add zan ', res)
+  //         }
+  //       })
+  //       const _ = app.globalData.db.command;
+  //       // var text_doc = app.globalData.db.collection('qyzx_texts').doc(this.data.textId)
+  //       // console.log("text_doc", text_doc)
+  //       var d = this.data.zans
+  //       console.log("d", d)
+  //       // text_doc.update({
+  //       //   data: {
+  //       //     // 将赞自增 1
+  //       //     // ding: _.inc(1)
+  //       //     ding: d + 1
+  //       //   },
+  //       //   success: function(res) {
+  //       //     console.log("数据更新成功！",res)
+  //       //   }
+  //       // })
+  //       db.collection('qyzx_texts').doc(this.data.textId).update({
+  //         // data 传入需要局部更新的数据
+  //         data: {
+  //           // 表示将 done 字段置为 true
+  //           ding: d + 1
+  //         },
+  //         success: function (res) {
+  //           console.log("update", res.data)
+  //         }
+  //       })
+
+  //       db.collection('qyzx_texts').doc(this.data.textId).get().then(res => {
+  //         console.log('刷新:', res.data)
+  //         this.setData({
+  //           zans: res.data.ding
+  //         })
+  //       })
+
+  //     } else {
+  //       //用户已经赞过该帖子
+  //       wx.showModal({
+  //         title: '提示',
+  //         content: '每个人只能赞一次哦',
+  //         success: function(res) {
+  //           if (res.confirm) {
+  //             console.log('用户点击确定')
+  //           } else if (res.cancel) {
+  //             console.log('用户点击取消')
+  //           }
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
+
+
 
   onLoad: function(e) {
     // 页面初始化 objectId为页面跳转所带来的参数
@@ -185,17 +227,18 @@ Page({
     console.log('onload执行')
     const _ = app.globalData.db.command
 
-    app.globalData.db.collection('qyzx_texts').doc(textId).get().then(res=> {
-      var duestr=String(res.data.due).split(" ").slice(1,5).join(" ")
+    app.globalData.db.collection('qyzx_texts').doc(textId).get().then(res => {
+      var duestr = String(res.data.due).split(" ").slice(1, 5).join(" ")
 
-      
+
       that.setData({
         rows: res.data,
-        rows_due:duestr,
+        rows_due: duestr,
         textId: textId,
         zans: res.data.ding
       })
       console.log('rows', that.data.rows)
+      console.log('textID', this.data.textId)
     })
 
     app.globalData.db.collection('qyzx_texts').doc(textId).update({
@@ -211,7 +254,7 @@ Page({
 
     app.globalData.db.collection('qyzx_comments').where({
       textID: textId
-    }).get().then( res => {
+    }).get().then(res => {
       console.log(res.data)
       this.setData({
         'commentList': res.data

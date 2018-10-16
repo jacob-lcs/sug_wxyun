@@ -1,14 +1,15 @@
 {
   "cloud": true,
   "pages": [
-    "pages/contact/index",
+    "pages/index/index",
     "pages/begin/begin",
     "pages/first/first",
-    "pages/index/index",
+    
     "pages/index/detail/index",
     "pages/suggest/suggest",
     "pages/home/mysug/mysug",
     "pages/aboutus/aboutus",
+    "pages/contact/index",
     "pages/home/mycomment/mycomment",
     
     "pages/logs/logs"
