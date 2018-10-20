@@ -1,11 +1,11 @@
 {
   "cloud": true,
   "pages": [
-    "pages/contact/index",
+    
     "pages/begin/begin",
     "pages/index/index",
     "pages/first/first",
-    
+    "pages/contact/index",
     "pages/index/detail/index",
     "pages/suggest/suggest",
     "pages/home/mysug/mysug",
