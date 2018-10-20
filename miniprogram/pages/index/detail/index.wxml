@@ -4,12 +4,13 @@
   <view class='titleImage'></view>
   <scroll-view class="node_wrap">
     <view class='titles'>
-      <image src = "{{rows.avatarUrl}}"></image>
+      <image src="{{rows.avatarUrl}}"></image>
       <view>
         <text class='author'>
         {{ rows.name }} 
       </text>
       </view>
+
     </view>
 
     <view class="text_content">
@@ -19,6 +20,7 @@
     <view class='timer'>
       发布于 {{ rows_due }}
     </view>
+
 
 
     <view class='foot'>

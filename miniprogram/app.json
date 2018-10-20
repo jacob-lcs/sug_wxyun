@@ -1,8 +1,9 @@
 {
   "cloud": true,
   "pages": [
-    "pages/index/index",
     "pages/begin/begin",
+    "pages/index/index",
+
     "pages/first/first",
     
     "pages/index/detail/index",

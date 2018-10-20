@@ -106,116 +106,110 @@ Page({
     })
   },
 
-  zan: function(e) {
-    const _ = app.globalData.db.command
-    const teacher_info = app.globalData.db.collection('qyzx_texts');
-    console.log("这个文章的ID为：", this.data.textId)
-    var d = this.data.zans
-    wx.cloud.callFunction({
-      name: 'zan',
-      data:{
-        zans: d+1,
-        id: this.data.textId
-      },
-      success: res => {
-        wx.showToast({
-          title: '点赞成功',
-        })
-        this.setData({
-          datas: D
-        })
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '点赞失败',
-        })
-        console.error('[云函数]  调用失败：', err)
-      }
-    })
-    // teacher_info.doc(this.data.textId).update({
-    //   data: {
-    //     ding: _.inc(1)
-    //   },
-    //   success: function(res){
-    //     console(res.data)
-    //   }
-    // })
-    this.setData({
-      zans: d+1
-    })
-  },
+  //点赞
   // zan: function(e) {
-  //   const praise_collection = app.globalData.db.collection('qyzx_praise');
+  //   const _ = app.globalData.db.command
+  //   const teacher_info = app.globalData.db.collection('qyzx_texts');
+  //   console.log("这个文章的ID为：", this.data.textId)
+  //   var d = this.data.zans;
 
-  //   praise_collection.where({
-  //     'textID': this.data.textId,
-  //     'userID': app.globalData.openid
-  //   }).get().then(res => {
-  //     console.log("赞记录", res)
-  //     if (res.data.length == 0) {
-  //       //用户未赞过该帖子
-  //       praise_collection.add({
-  //         data: {
-  //           due: new Date(),
-  //           textID: new String(this.data.textId),
-  //           userID: new String(app.globalData.openid)
-  //         },
-  //         success: function(res) {
-  //           // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-  //           console.log('add zan ', res)
-  //         }
+  //   wx.cloud.callFunction({
+  //     name: 'zan',
+  //     data:{
+  //       zans: d+1,
+  //       id: this.data.textId
+  //     },
+  //     success: res => {
+  //       wx.showToast({
+  //         title: '点赞成功',
   //       })
-  //       const _ = app.globalData.db.command;
-  //       // var text_doc = app.globalData.db.collection('qyzx_texts').doc(this.data.textId)
-  //       // console.log("text_doc", text_doc)
-  //       var d = this.data.zans
-  //       console.log("d", d)
-  //       // text_doc.update({
-  //       //   data: {
-  //       //     // 将赞自增 1
-  //       //     // ding: _.inc(1)
-  //       //     ding: d + 1
-  //       //   },
-  //       //   success: function(res) {
-  //       //     console.log("数据更新成功！",res)
-  //       //   }
-  //       // })
-  //       db.collection('qyzx_texts').doc(this.data.textId).update({
-  //         // data 传入需要局部更新的数据
-  //         data: {
-  //           // 表示将 done 字段置为 true
-  //           ding: d + 1
-  //         },
-  //         success: function (res) {
-  //           console.log("update", res.data)
-  //         }
+  //       this.setData({
+  //         datas: D
   //       })
 
-  //       db.collection('qyzx_texts').doc(this.data.textId).get().then(res => {
-  //         console.log('刷新:', res.data)
-  //         this.setData({
-  //           zans: res.data.ding
-  //         })
+  //     },
+  //     fail: err => {
+  //       wx.showToast({
+  //         icon: 'none',
+  //         title: '点赞失败',
   //       })
-
-  //     } else {
-  //       //用户已经赞过该帖子
-  //       wx.showModal({
-  //         title: '提示',
-  //         content: '每个人只能赞一次哦',
-  //         success: function(res) {
-  //           if (res.confirm) {
-  //             console.log('用户点击确定')
-  //           } else if (res.cancel) {
-  //             console.log('用户点击取消')
-  //           }
-  //         }
-  //       })
+  //       console.error('[云函数]  调用失败：', err)
   //     }
   //   })
+  //   this.setData({
+  //     zans: d+1
+  //   })
   // },
+
+  zan: function(e) {
+    const praise_collection = app.globalData.db.collection('qyzx_praise');
+
+    //在qyzx_praise中查找是否当前用户赞过该帖子
+    praise_collection.where({
+      '_openid': app.globalData.openid,
+      'textID': this.data.textId
+    }).get().then(res => {
+      console.log("赞记录", res)
+      if (res.data.length == 0) {
+        //用户未赞过该帖子,新增qyzx_praise记录
+        praise_collection.add({
+          data: {
+            due: new Date(),
+            textID: new String(this.data.textId),
+            //userID: new String(app.globalData.openid)
+          },
+          success: function(res) {
+            // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+            console.log('add zan ', res)
+          }
+        })
+
+        //用户未赞过该帖子
+        //刷新界面上的点赞数
+        var d=this.data.zans
+        this.setData({
+          zans: d + 1
+        })
+        //增加texts数据库中的ding属性值，需要用到云函数
+        // wx.cloud.callFunction({
+        //   // 云函数名称
+        //   name: 'zan',
+        //   // 传给云函数的参数
+        //   data: {
+        //     textID: this.data.textId,
+        //   },
+        // })
+        //   .then(res => {
+        //     console.log('callFunction中的res:',res)
+        //   })
+        //   .catch(console.error)
+        const _ = app.globalData.db.command
+        app.globalData.db.collection('qyzx_texts').doc(this.data.textId).update({
+          data: {
+            // 将浏览量自增 1
+            ding: _.inc(1)
+          },
+          success: function (res) {
+            console.log(res)
+          }
+        })
+
+      } else {
+        //用户已经赞过该帖子
+        wx.showModal({
+          title: '提示',
+          content: '每个人只能赞一次哦',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    })
+  },
 
 
 

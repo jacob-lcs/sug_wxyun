@@ -29,7 +29,7 @@ page {
   /* flex: 0 0 60rpx; */
   width: 100rpx;
   height: 100rpx;
-  border-radius: 40%;
+  border-radius: 50%;
 }
 
 .titles view {
@@ -41,11 +41,11 @@ page {
 .author {
   padding: 0;
   line-height: 0.7;
-  margin-left: 20rpx;  
+  margin-left: 25rpx;  
 }
 
 .author {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .zans{

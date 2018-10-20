@@ -47,12 +47,13 @@
     <image class='icon3' bindtap='aboutus' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/38bd436740d30c2080650d7b80e52807.png' style='margin-bottom:30rpx;'></image>
   </view>
 </i-drawer>
+
 <i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll">
-  <i-tab key="全部" title="全部"></i-tab>
-  <i-tab key="教学" title="教学"></i-tab>
-  <i-tab key="后勤" title="后勤"></i-tab>
-  <i-tab key="课余" title="课余"></i-tab>
-  <i-tab key="其他" title="其他"></i-tab>
+  <i-tab key="全部" title=" 全 部 "></i-tab>
+  <i-tab key="教学" title=" 教 学 "></i-tab>
+  <i-tab key="后勤" title=" 后 勤 "></i-tab>
+  <i-tab key="课余" title=" 课 余 "></i-tab>
+  <i-tab key="其他" title=" 其 他 "></i-tab>
 </i-tabs>
 
 <view class="page">
