@@ -130,7 +130,7 @@ Page({
    */
   onReady: function() {
     this.setData({
-      username: app.globalData.nickName
+      userName: app.globalData.nickName
     })
 
   },

@@ -5,13 +5,13 @@ const db = wx.cloud.database()
 var common = require('../../dist/common.js');
 
 var app = getApp();
-
+var idd = []
 var that;
 Page({
   data: {
 
     textList: {},
-
+    shijian:false,
     classes: ['全部', '教学', '后勤', '课余', '其他'],
     index: 0,
     current: '全部',
@@ -41,6 +41,37 @@ Page({
     wx.navigateTo({
       url: '/pages/home/login/login',
     })
+  },
+
+  onReachBottom:function(){
+    console.log("onReachBottom函数运行！")
+    const _ = db.command
+    if(this.data.shijian == false){
+      db.collection("qyzx_texts").where({
+        _id: _.nin(idd)
+      }).get().then(res => {
+        console.log(res)
+        for (var index in res.data) {
+          idd.push(res.data[index]._id)
+        }
+        this.setData({
+          textList: this.data.textList.concat(res.data)
+        })
+      })
+    }else{
+      db.collection("qyzx_texts").where({
+        _id: _.nin(idd)
+      }).orderBy('due', 'desc').get().then(res => {
+        console.log(res)
+        for (var index in res.data) {
+          idd.push(res.data[index]._id)
+        }
+        this.setData({
+          textList: this.data.textList.concat(res.data)
+        })
+      })
+    }
+    
   },
 
   home: function() {
@@ -122,6 +153,7 @@ Page({
       })
     }
 
+
   },
 
   onShareAppMessage: function() {},
@@ -147,6 +179,9 @@ Page({
 
   //按时间排序
   shijian: function() {
+    this.setData({
+      shijian:true
+    })
 
     const texts_collection = db.collection('qyzx_texts')
     if (this.data.current_scroll == "全部") {
@@ -155,6 +190,11 @@ Page({
           this.setData({
             textList: res.data
           })
+          for (var index in res.data) {
+            console.log("index:", res.data[index]._id)
+            idd[index] = res.data[index]._id
+          };
+          console.log("ID数组为：", idd)
         })
     } else {
       texts_collection.where({
@@ -164,6 +204,11 @@ Page({
           this.setData({
             textList: res.data
           })
+          for (var index in res.data) {
+            console.log("index:", res.data[index]._id)
+            idd[index] = res.data[index]._id
+          };
+          console.log("ID数组为：", idd)
         })
     }
   },
@@ -176,7 +221,8 @@ Page({
   },
 
   onShow: function() {
-
+    var i = 0;
+    
     const texts_collection = db.collection('qyzx_texts')
 
     if (this.data.current_scroll == "全部") {
@@ -185,7 +231,13 @@ Page({
           this.setData({
             textList: res.data
           })
+          for (var index in res.data) {
+            console.log("index:", res.data[index]._id)
+            idd[index] = res.data[index]._id
+          };
+          console.log("ID数组为：", idd)
         })
+        
     } else {
       texts_collection.where({
           classes: this.data.current_scroll
@@ -193,9 +245,19 @@ Page({
         .get().then(res => {
           this.setData({
             textList: res.data
-          })
+          });
+          
+          for (var index in res.data) {
+            console.log("index:", res.data[index]._id)
+            idd[index] = res.data[index]._id
+          };
+          console.log("ID数组为：", idd)
         })
-    }
+
+    };
+    
+    
+    
 
   }
 })
