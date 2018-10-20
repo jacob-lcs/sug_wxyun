@@ -1,19 +1,17 @@
 {
   "cloud": true,
   "pages": [
-    "pages/index/index",
+    "pages/contact/index",
     "pages/begin/begin",
-
+    "pages/index/index",
     "pages/first/first",
     
     "pages/index/detail/index",
     "pages/suggest/suggest",
     "pages/home/mysug/mysug",
     "pages/aboutus/aboutus",
-    "pages/contact/index",
-    "pages/home/mycomment/mycomment",
     
-    "pages/logs/logs"
+    "pages/home/mycomment/mycomment"
     
   ],
   "data": {
