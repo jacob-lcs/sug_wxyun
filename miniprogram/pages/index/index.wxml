@@ -8,6 +8,7 @@
 <view class="round-click1" bindtap="toggleLeft1">
   ≡
 </view>
+
 <view class="weui-search-bar">
   <view class="weui-search-bar__form">
     <view class="weui-search-bar__box">
@@ -22,8 +23,10 @@
       <view class="weui-search-bar__text">搜索</view>
     </label>
   </view>
-  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消 </view>
 </view>
+
+
 <i-drawer mode="left" visible="{{showLeft1}}" bind:close="toggleLeft1">
   <view class='chouti'>
     <view class='bkct'>
@@ -69,7 +72,7 @@
         <view class="weui-panel__bd">
           <block wx:if="{{textList.length>0}}">
             <navigator class='i-card' wx:for="{{textList}}" wx:key="textItem" url="/pages/index/detail/index?objectId={{item._id}}">
-              <i-card title="{{item.name}}" extra="{{item.ding}}人赞过 · {{item.classes}}" thumb = "{{item.avatarUrl}}">
+              <i-card title="{{item.name}}" extra="{{item.ding}}人赞过 · {{item.classes}}" thumb="{{item.avatarUrl}}">
                 <view class="zw" slot="content">{{ item.content }}</view>
               </i-card>
             </navigator>

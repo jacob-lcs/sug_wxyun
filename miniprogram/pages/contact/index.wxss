@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../../style/weui.wxss";
 .all_settings{
   background-image: -webkit-linear-gradient(90deg,rgb(42,201,253),rgb(165,55,255));
 }
