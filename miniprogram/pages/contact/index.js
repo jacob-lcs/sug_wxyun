@@ -120,6 +120,7 @@ Page({
 
 
   onLoad: function(options) {
+    idd = []
     // 生命周期函数--监听页面加载
     // showView: (options.showView == "true" ? true : false)
     db.collection('teacher_info')

@@ -159,7 +159,9 @@ Page({
   onShareAppMessage: function() {},
 
 
-  onLoad: function() {},
+  onLoad: function() {
+    idd = []
+  },
 
   showInput: function() {
     this.setData({
