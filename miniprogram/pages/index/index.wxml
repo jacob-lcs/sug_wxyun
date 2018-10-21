@@ -24,7 +24,6 @@
   </view>
   <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
 </view>
-
 <i-drawer mode="left" visible="{{showLeft1}}" bind:close="toggleLeft1">
   <view class='chouti'>
     <view class='bkct'>
@@ -39,6 +38,10 @@
       <text class='xuanze' bindtap='fabu'>我的发布\n</text>
       <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/1478aa2e40e16da58072b7707141141a.png'></image>
       <text class='xuanze' bindtap='pl'>我的评论\n</text>
+      <!-- <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/89e7d356405645ff805fdbb5c4bf51f3.png'></image>
+      <text class='xuanze'>我的消息\n</text> -->
+      <!-- <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/bd593848403f6b15803b7e9b976ce280.png'></image>
+      <text class='xuanze' bindtap='change'>切换账号\n</text> -->
     </view>
     <image class='icon2' bindtap='home' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/746e6ac940d9c7e9801ffad64c874593.png' style='margin-bottom:30rpx;'></image>
     <image class='icon3' bindtap='aboutus' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/38bd436740d30c2080650d7b80e52807.png' style='margin-bottom:30rpx;'></image>
