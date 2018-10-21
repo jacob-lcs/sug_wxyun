@@ -265,26 +265,62 @@ Page({
 })
 
 function getLike(t, k) {
-  that = t;
-  db.collection('qyzx_texts').where({
-      deleted: false
-    })
-    .get({
-      success: function(res) {
-        console.log("获取成功，数据为： ", res.data)
-        var i;
-        var test = [];
-        for (i = 0; i < res.data.length; i++) {
-          if (res.data[i].content.indexOf(k) >= 0) {
-            console.log("成功");
-            test[test.length] = res.data[i]
+  var that = t;
+
+  if (k == "")
+    that.onShow();
+
+  const MAX_LIMIT = 20
+
+  db.collection('qyzx_texts').count().then(res => {
+    // 计算需分几次取
+    const batchTimes = Math.ceil(res.total / 20)
+    var searchResult = []
+    for (let i = 0; i < batchTimes; i++) {
+      db.collection('qyzx_texts').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+        for (var index in res.data) {
+          idd.push(res.data[index]._id)
+        }
+        for (let j = 0; j < res.data.length; j++) {
+          if (res.data[j].content.indexOf(k) >= 0) {
+            console.log(res.data[j].content)
+            searchResult.push(res.data[j])
             that.setData({
               textList: null,
-              textList: test,
+              textList: searchResult,
             })
           };
         }
-      }
-    })
-  console.log("TextList", t.data.textList)
+      })
+    }
+    if (searchResult.length == 0)
+      that.setData({
+        textList: null
+      })
+    console.log("查询结果：", searchResult)
+  })
+
+  // that = t;
+  // db.collection('qyzx_texts').where({
+  //     deleted: false
+  //   })
+  //   .get({
+  //     success: function(res) {
+        
+  //       console.log("获取成功，数据为： ", res.data)
+  //       var i;
+  //       var test = [];
+  //       for (i = 0; i < res.data.length; i++) {
+  //         if (res.data[i].content.indexOf(k) >= 0) {
+  //           console.log("成功");
+  //           test[test.length] = res.data[i]
+  //           that.setData({
+  //             textList: null,
+  //             textList: test,
+  //           })
+  //         };
+  //       }
+  //     }
+  //   })
+  // console.log("TextList", t.data.textList)
 }
