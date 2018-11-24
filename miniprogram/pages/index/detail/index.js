@@ -1,6 +1,7 @@
 // pages/index/detail/index.js
 var app = getApp();
-let that = this
+let that = this;
+const { $Toast } = require('../../../dist/base/index');
 
 Page({
   data: {
@@ -32,6 +33,7 @@ Page({
       pinglun: "",
     });
   },
+    
 
   //评论完成后点击确认按钮  
   confirm: function() {
@@ -54,31 +56,17 @@ Page({
       },
       success: function(res) {
         console.log(res)
-        wx.showModal({
-          title: '提示',
+        $Toast({
           content: '友善发言的人运气不会太差。',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+          type: 'success'
+        });
       },
       fail: function(err) {
         console.log(err)
-        wx.showModal({
-          title: '提示',
+        $Toast({
           content: '提交失败,请检查网络',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+          type: 'error'
+        });
       }
     })
 
@@ -105,41 +93,6 @@ Page({
       pinglun: e.detail.value
     })
   },
-
-  //点赞
-  // zan: function(e) {
-  //   const _ = app.globalData.db.command
-  //   const teacher_info = app.globalData.db.collection('qyzx_texts');
-  //   console.log("这个文章的ID为：", this.data.textId)
-  //   var d = this.data.zans;
-
-  //   wx.cloud.callFunction({
-  //     name: 'zan',
-  //     data:{
-  //       zans: d+1,
-  //       id: this.data.textId
-  //     },
-  //     success: res => {
-  //       wx.showToast({
-  //         title: '点赞成功',
-  //       })
-  //       this.setData({
-  //         datas: D
-  //       })
-
-  //     },
-  //     fail: err => {
-  //       wx.showToast({
-  //         icon: 'none',
-  //         title: '点赞失败',
-  //       })
-  //       console.error('[云函数]  调用失败：', err)
-  //     }
-  //   })
-  //   this.setData({
-  //     zans: d+1
-  //   })
-  // },
 
   zan: function(e) {
     const praise_collection = app.globalData.db.collection('qyzx_praise');
@@ -170,19 +123,6 @@ Page({
         this.setData({
           zans: d + 1
         })
-        //增加texts数据库中的ding属性值，需要用到云函数
-        // wx.cloud.callFunction({
-        //   // 云函数名称
-        //   name: 'zan',
-        //   // 传给云函数的参数
-        //   data: {
-        //     textID: this.data.textId,
-        //   },
-        // })
-        //   .then(res => {
-        //     console.log('callFunction中的res:',res)
-        //   })
-        //   .catch(console.error)
         const _ = app.globalData.db.command
         app.globalData.db.collection('qyzx_texts').doc(this.data.textId).update({
           data: {
@@ -196,17 +136,10 @@ Page({
 
       } else {
         //用户已经赞过该帖子
-        wx.showModal({
-          title: '提示',
+        $Toast({
           content: '每个人只能赞一次哦',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+          icon: 'praise'
+        });
       }
     })
   },

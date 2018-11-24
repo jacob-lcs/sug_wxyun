@@ -1,6 +1,6 @@
 <!--pages/index/detail/index.wxml-->
+<i-toast id="toast" />
 <view class="page">
-
   <view class='titleImage'></view>
   <scroll-view class="node_wrap">
     <view class='titles'>

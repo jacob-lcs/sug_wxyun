@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText":"详情",
-  "enablePullDownRefresh":true
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "i-toast": "../../../dist/toast/index"
+  }
 }

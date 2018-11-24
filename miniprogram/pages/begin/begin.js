@@ -5,15 +5,28 @@ var pageObject = {
   data: {
 
   },
-  log_in: function(){
+  log_in: function() {
     wx.cloud.callFunction({
       name: 'login',
       complete: res => {
         console.log('callFunction test result: ', res)
         app.globalData.openid = res.result.openId
-        console.log(app.globalData.openid)
+        db.collection('master').where({
+            opid: res.result.openId
+          })
+          .get({
+            success: function(res) {
+              console.log("在数据库中的查询结果:", res.data)
+              if(res.data.length = 1){
+                app.globalData.master = true
+              }
+            }
+          })
+        console.log("全局变量中的openid：", app.globalData.openid)
       }
     })
+    
+
   },
   onGotUserInfo: function(e) {
     console.log(e.detail.errMsg)

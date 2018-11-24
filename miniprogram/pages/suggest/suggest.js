@@ -1,6 +1,7 @@
 // pages/suggest/suggest.js
-
+let that = this
 var app = getApp();
+var classes
 
 Page({
 
@@ -31,7 +32,7 @@ Page({
     ]
   },
 
-  
+
 
   radioChange: function(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value);
@@ -47,76 +48,92 @@ Page({
   },
 
   loginBtnClick: function(e) {
-      if (this.data.suggestion == null) {
-        wx.showModal({
-          title: '提示',
-          content: '请不要输入空的内容哦',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+    if (this.data.suggestion == null) {
+      
+      wx.showModal({
+        title: '提示',
+        content: '请不要输入空的内容哦',
+        success: function(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+    } else {
+      classes = this.data.classes
+      console.log("类别：" + this.data.classes + " 建议：" + this.data.suggestion);
+      var s = ''
+      wx.request({
+        url: 'https://www.lcscoder.cn/minganci',
+        data: {
+          sentence: this.data.suggestion
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          s = res.data['sentence']
+          console.log("请求结果为：", s)
+          app.globalData.db.collection('qyzx_texts').add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              classes: new String(classes),
+              due: new Date(),
+              content: new String(s),
+              name: new String(app.globalData.userInfo.nickName),
+              viewed: new Number(0),
+              ding: new Number(0),
+              checked: false,
+              avatarUrl: new String(app.globalData.userInfo.avatarUrl),
+              deleted: false
+            },
+            success: function (res) {
+              // 成功反馈建议
+              console.log(res)
+              wx.showModal({
+                title: '提示',
+                content: '提交成功',
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                    wx.navigateTo({
+                      url: '/pages/index/index',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+              this.setData({
+                suggestion: "",
+                userName: ""
+              });
+              console.log("跳转界面")
+            },
+            fail: function (res) {
+              console.log(err)
+              wx.showModal({
+                title: '提示',
+                content: '提交失败,请检查网络',
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
             }
-          }
-        })
+          })
+        }
+      })
+      
+    }
 
-      } else {
-        console.log("类别：" + this.data.classes + " 建议：" + this.data.suggestion);
-
-        app.globalData.db.collection('qyzx_texts').add({
-          // data 字段表示需新增的 JSON 数据
-          data: {
-            classes: new String(this.data.classes),
-            due: new Date(),
-            content: new String(this.data.suggestion),
-            name: new String(app.globalData.userInfo.nickName),
-            viewed: new Number(0),
-            ding: new Number(0),
-            checked: false,
-            avatarUrl: new String(app.globalData.userInfo.avatarUrl),
-            deleted: false
-          },
-          success: function(res) {
-            // 成功反馈建议
-            console.log(res)
-            wx.showModal({
-              title: '提示',
-              content: '提交成功',
-              success: function(res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                  wx.navigateTo({
-                    url: '/pages/index/index',
-                  })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-            this.setData({
-              suggestion: "",
-              userName: ""
-            });
-            console.log("跳转界面")
-          },
-          fail: function(res) {
-            console.log(err)
-            wx.showModal({
-              title: '提示',
-              content: '提交失败,请检查网络',
-              success: function(res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-          }
-        })
-      }
-
-    },
+  },
 
   /**
    * 生命周期函数--监听页面加载
