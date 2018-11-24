@@ -2,6 +2,8 @@
 var app = getApp();
 let that = this;
 const { $Toast } = require('../../../dist/base/index');
+var textId = ''
+var pinglun = ''
 
 Page({
   data: {
@@ -37,54 +39,65 @@ Page({
 
   //评论完成后点击确认按钮  
   confirm: function() {
+    pinglun = this.data.pinglun
+    textId = this.data.textId
     this.setData({
       hiddenmodalput: true
     })
-
-    console.log("评论：" + this.data.pinglun);
-
-    //插入一条评论数据
-    const comments_collection = app.globalData.db.collection('qyzx_comments');
-    comments_collection.add({
-      // data 字段表示需新增的 JSON 数据
+    wx.request({
+      url: 'https://www.lcscoder.cn/minganci',
       data: {
-        due: new Date(),
-        content: this.data.pinglun,
-        commentator: app.globalData.userInfo.nickName,
-        textID: this.data.textId,
-        deleted: false
+        sentence: this.data.pinglun
       },
-      success: function(res) {
-        console.log(res)
-        $Toast({
-          content: '友善发言的人运气不会太差。',
-          type: 'success'
-        });
+      header: {
+        'content-type': 'application/json'
       },
-      fail: function(err) {
-        console.log(err)
-        $Toast({
-          content: '提交失败,请检查网络',
-          type: 'error'
-        });
+      success(res) {
+        var s = res.data['sentence']
+        console.log("请求结果为：", s)
+
+        //插入一条评论数据
+        const comments_collection = app.globalData.db.collection('qyzx_comments');
+        comments_collection.add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            due: new Date(),
+            content: s,
+            commentator: app.globalData.userInfo.nickName,
+            textID: textId,
+            deleted: false
+          },
+          success: function (res) {
+            console.log(res)
+            $Toast({
+              content: '友善发言的人运气不会太差。',
+              type: 'success'
+            });
+          },
+          fail: function (err) {
+            console.log(err)
+            $Toast({
+              content: '提交失败,请检查网络',
+              type: 'error'
+            });
+          }
+        })
+
+        const comments_collection2 = app.globalData.db.collection('qyzx_comments');
+        comments_collection2.where({
+          textID: this.data.textId
+        }).orderBy('due', 'desc')
+          .get().then(res => {
+            console.log('按时间排序后：', res.data)
+            this.setData({
+              'commentList': res.data
+            })
+            console.log('commentList:', this.data.commentList)
+          });
       }
     })
+    
 
-    this.setData({
-      pinglun: "",
-    });
-
-    const comments_collection2 = app.globalData.db.collection('qyzx_comments');
-    comments_collection2.where({
-        textID: this.data.textId
-      }).orderBy('due', 'desc')
-      .get().then(res => {
-        console.log('按时间排序后：', res.data)
-        this.setData({
-          'commentList': res.data
-        })
-        console.log('commentList:', this.data.commentList)
-      });
 
   },
 
