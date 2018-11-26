@@ -32,6 +32,12 @@ Page({
     })
   },
 
+  contactus:function(){
+    wx.navigateTo({
+      url: '/pages/contactus/index',
+    })
+  },
+
   setDisabled: function(e) {
     this.setData({
       disabled: !this.data.disabled

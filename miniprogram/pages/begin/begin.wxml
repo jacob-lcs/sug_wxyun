@@ -1,5 +1,4 @@
 <!--miniprogram/pages/begin/begin.wxml-->
-<!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" bindtap='log_in'>获取用户信息</button> -->
 
 <view class="container">
   <view class="userinfo">

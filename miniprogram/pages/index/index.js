@@ -11,7 +11,7 @@ Page({
   data: {
 
     textList: {},
-    shijian:false,
+    shijian: false,
     classes: ['全部', '教学', '后勤', '课余', '其他'],
     index: 0,
     current: '全部',
@@ -20,7 +20,8 @@ Page({
     deg: 135,
     showLeft1: false,
     username: '',
-    avatarUrl: ''
+    avatarUrl: '',
+    master: false
   },
   hideInput: function() {
     this.setData({
@@ -43,10 +44,10 @@ Page({
     })
   },
 
-  onReachBottom:function(){
+  onReachBottom: function() {
     console.log("onReachBottom函数运行！")
     const _ = db.command
-    if(this.data.shijian == false){
+    if (this.data.shijian == false) {
       db.collection("qyzx_texts").where({
         _id: _.nin(idd)
       }).get().then(res => {
@@ -58,7 +59,7 @@ Page({
           textList: this.data.textList.concat(res.data)
         })
       })
-    }else{
+    } else {
       db.collection("qyzx_texts").where({
         _id: _.nin(idd)
       }).orderBy('due', 'desc').get().then(res => {
@@ -71,7 +72,7 @@ Page({
         })
       })
     }
-    
+
   },
 
   home: function() {
@@ -122,7 +123,6 @@ Page({
       current_scroll: detail.key
     });
 
-
     //点击顶部分类栏，显示各分类下的帖子
     const texts_collection = app.globalData.db.collection('qyzx_texts')
 
@@ -152,15 +152,15 @@ Page({
         username: app.globalData.userInfo.nickName
       })
     }
-
-
   },
 
   onShareAppMessage: function() {},
 
-
   onLoad: function() {
-    idd = []
+    idd = [],
+    this.setData({
+      master: app.globalData.master
+    })
   },
 
   showInput: function() {
@@ -182,7 +182,7 @@ Page({
   //按时间排序
   shijian: function() {
     this.setData({
-      shijian:true
+      shijian: true
     })
 
     const texts_collection = db.collection('qyzx_texts')
@@ -224,7 +224,7 @@ Page({
 
   onShow: function() {
     var i = 0;
-    
+
     const texts_collection = db.collection('qyzx_texts')
 
     if (this.data.current_scroll == "全部") {
@@ -239,7 +239,7 @@ Page({
           };
           console.log("ID数组为：", idd)
         })
-        
+
     } else {
       texts_collection.where({
           classes: this.data.current_scroll
@@ -248,19 +248,14 @@ Page({
           this.setData({
             textList: res.data
           });
-          
+
           for (var index in res.data) {
             console.log("index:", res.data[index]._id)
             idd[index] = res.data[index]._id
           };
           console.log("ID数组为：", idd)
         })
-
     };
-    
-    
-    
-
   }
 })
 
@@ -299,28 +294,4 @@ function getLike(t, k) {
       })
     console.log("查询结果：", searchResult)
   })
-
-  // that = t;
-  // db.collection('qyzx_texts').where({
-  //     deleted: false
-  //   })
-  //   .get({
-  //     success: function(res) {
-        
-  //       console.log("获取成功，数据为： ", res.data)
-  //       var i;
-  //       var test = [];
-  //       for (i = 0; i < res.data.length; i++) {
-  //         if (res.data[i].content.indexOf(k) >= 0) {
-  //           console.log("成功");
-  //           test[test.length] = res.data[i]
-  //           that.setData({
-  //             textList: null,
-  //             textList: test,
-  //           })
-  //         };
-  //       }
-  //     }
-  //   })
-  // console.log("TextList", t.data.textList)
 }

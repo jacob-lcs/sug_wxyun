@@ -18,7 +18,7 @@ var pageObject = {
             success: function(res) {
               console.log("在数据库中的查询结果:", res.data)
               if(res.data.length = 1){
-                app.globalData.master = true
+                app.globalData.master = false
               }
             }
           })

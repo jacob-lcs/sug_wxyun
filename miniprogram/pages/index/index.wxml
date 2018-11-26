@@ -43,8 +43,6 @@
       <text class='xuanze' bindtap='pl'>我的评论\n</text>
       <!-- <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/89e7d356405645ff805fdbb5c4bf51f3.png'></image>
       <text class='xuanze'>我的消息\n</text> -->
-      <!-- <image class='icon' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/bd593848403f6b15803b7e9b976ce280.png'></image>
-      <text class='xuanze' bindtap='change'>切换账号\n</text> -->
     </view>
     <image class='icon2' bindtap='home' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/746e6ac940d9c7e9801ffad64c874593.png' style='margin-bottom:30rpx;'></image>
     <image class='icon3' bindtap='aboutus' src='http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/38bd436740d30c2080650d7b80e52807.png' style='margin-bottom:30rpx;'></image>
@@ -72,12 +70,17 @@
         <view class="weui-panel__bd">
           <block wx:if="{{textList.length>0}}">
             <navigator class='i-card' wx:for="{{textList}}" wx:key="textItem" url="/pages/index/detail/index?objectId={{item._id}}">
-              <i-card title="{{item.name}}" extra="{{item.ding}}人赞过 · {{item.classes}}" thumb="{{item.avatarUrl}}">
+
+              <i-card title="{{item.name}}" extra=" {{item.ding}}人赞过 · {{item.classes}}" thumb="{{item.avatarUrl}}">
                 <view class="zw" slot="content">{{ item.content }}</view>
               </i-card>
+              <view hidden='false'>
+              <button  class="delete">删除</button>
+              </view>
             </navigator>
 
           </block>
+
           <block wx:else>
             <view class="weui-media-box weui-media-box_text">
               <view class="weui-media-box__title weui-media-box__title_in-text">

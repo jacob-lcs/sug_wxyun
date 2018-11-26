@@ -1,0 +1,24 @@
+.container3 {
+  height: 100vh;
+  background-image: url('https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/contactus.png?sign=683f97453e66e1e39525a97aee094e82&t=1543241614');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.about-banner8 {
+  height: 250rpx;
+  width: 250rpx;
+}
+
+.BJ2 {
+  height: 900rpx;
+  width: 600rpx;
+}
+
+.BJ1 {
+  height: 562rpx;
+  width: 750rpx;
+}

@@ -37,6 +37,6 @@ App({
     windowHeight: 0,
     db: null,
     openid: '',
-    master:false
+    master:true  //表示隐藏删除按钮
   }
 })

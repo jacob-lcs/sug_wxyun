@@ -69,9 +69,9 @@
       <text>教师联系方式</text>
     </view>
 
-    <view class="grid_item item3">
+    <view class="grid_item item3" bindtap='contactus'>
       <image src="http://bmob-cdn-20067.b0.upaiyun.com/2018/06/30/f645525940773a028075686dc3a6c95c.png"></image>
-      <text>敬请期待</text>
+      <text>联系我们</text>
     </view>
 
   </view>

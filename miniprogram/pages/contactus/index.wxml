@@ -1,0 +1,13 @@
+<view class='container3'>
+
+
+  <image src='https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/背景2.jpg?sign=4132cea7d98b04a088075018b28f02d9&t=1543241517' style='position:fixeed;border-radius: 60rpx ;opacity:{{0.7}}' class='BJ2'></image>
+
+  <image style="position:fixed;bottom:670rpx" class='about-banner8' src="https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/院徽.jpg?sign=86c6de9c98ae180543d426b59b85ef4d&t=1543241644"></image>
+  <text style='font-weight: bold;position:fixed;bottom:560rpx;font-size:45rpx'>计算机工程与科学学院</text>
+  <text style='font-weight: bold;position:fixed;bottom:500rpx;font-size:45rpx'>团委·学生会</text>
+  <text selectable='true' style='font-weight: bold;position:fixed;bottom: 400rpx;font-size:50rpx'>
+——权益中心——</text>
+  <label bindtap='copyBtn' style='font-weight:bold;font-size:40rpx;position:fixed;bottom:200rpx'>邮箱：qyzx_2018@163.com</label>
+  <text style='font-size:35rpx ;font-weight: bold;position:fixed;bottom:0px'>Copyright©2018 权益中心</text>
+</view>
