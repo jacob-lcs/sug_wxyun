@@ -70,7 +70,7 @@
     </view>
 
     <view class="grid_item item3" bindtap='contactus'>
-      <image src="http://bmob-cdn-20067.b0.upaiyun.com/2018/06/30/f645525940773a028075686dc3a6c95c.png"></image>
+      <image src="https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/love.png?sign=e4a33728e7bbb3d66d1ec38d74025c6b&t=1543469650"></image>
       <text>联系我们</text>
     </view>
 

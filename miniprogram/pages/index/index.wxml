@@ -74,11 +74,7 @@
               <i-card title="{{item.name}}" extra=" {{item.ding}}人赞过 · {{item.classes}}" thumb="{{item.avatarUrl}}">
                 <view class="zw" slot="content">{{ item.content }}</view>
               </i-card>
-              <view hidden='false'>
-              <button  class="delete">删除</button>
-              </view>
             </navigator>
-
           </block>
 
           <block wx:else>

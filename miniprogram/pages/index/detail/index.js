@@ -1,7 +1,9 @@
 // pages/index/detail/index.js
 var app = getApp();
 let that = this;
-const { $Toast } = require('../../../dist/base/index');
+const {
+  $Toast
+} = require('../../../dist/base/index');
 var textId = ''
 var pinglun = ''
 
@@ -35,7 +37,7 @@ Page({
       pinglun: "",
     });
   },
-    
+
 
   //评论完成后点击确认按钮  
   confirm: function() {
@@ -67,14 +69,14 @@ Page({
             textID: textId,
             deleted: false
           },
-          success: function (res) {
+          success: function(res) {
             console.log(res)
             $Toast({
               content: '友善发言的人运气不会太差。',
               type: 'success'
             });
           },
-          fail: function (err) {
+          fail: function(err) {
             console.log(err)
             $Toast({
               content: '提交失败,请检查网络',
@@ -85,8 +87,8 @@ Page({
 
         const comments_collection2 = app.globalData.db.collection('qyzx_comments');
         comments_collection2.where({
-          textID: this.data.textId
-        }).orderBy('due', 'desc')
+            textID: this.data.textId
+          }).orderBy('due', 'desc')
           .get().then(res => {
             console.log('按时间排序后：', res.data)
             this.setData({
@@ -96,7 +98,7 @@ Page({
           });
       }
     })
-    
+
 
 
   },
@@ -104,6 +106,23 @@ Page({
   sugInput: function(e) {
     this.setData({
       pinglun: e.detail.value
+    })
+  },
+
+  dele: function() {
+    console.log("删除函数运行")
+    console.log("这篇文章的id是：", this.data.textId)
+    app.globalData.db.collection('qyzx_texts').doc(this.data.textId).update({
+      data: {
+        deleted: true
+      },
+      success: function(res) {
+        console.log(res)
+      }
+    })
+    wx.showModal({
+      title: '提示',
+      content: '删除成功！',
     })
   },
 
@@ -132,7 +151,7 @@ Page({
 
         //用户未赞过该帖子
         //刷新界面上的点赞数
-        var d=this.data.zans
+        var d = this.data.zans
         this.setData({
           zans: d + 1
         })
@@ -142,7 +161,7 @@ Page({
             // 将浏览量自增 1
             ding: _.inc(1)
           },
-          success: function (res) {
+          success: function(res) {
             console.log(res)
           }
         })
@@ -175,7 +194,8 @@ Page({
         rows: res.data,
         rows_due: duestr,
         textId: textId,
-        zans: res.data.ding
+        zans: res.data.ding,
+        master: app.globalData.master
       })
       console.log('rows', that.data.rows)
       console.log('textID', this.data.textId)

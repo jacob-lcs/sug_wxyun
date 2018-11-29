@@ -24,6 +24,7 @@
 
 
     <view class='foot'>
+    <image src='https://7375-sug-8d3346-1257787229.tcb.qcloud.la/img/delete.png?sign=6bed58d817fd38e313ac910a41169f55&t=1543467730' bindtap='dele' wx:if="{{master}}"></image>
       <image src="http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/3951d92840eb328c80446f9da154b9cb.png" bindtap='modalinput'></image>
       <image src="http://bmob-cdn-20067.b0.upaiyun.com/2018/07/05/468787e04034e190808696c6e52ba5a7.png" bindtap='zan'></image>
       <text class='zans'>{{zans}}</text>

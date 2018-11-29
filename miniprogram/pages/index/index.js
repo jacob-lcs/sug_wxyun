@@ -49,7 +49,8 @@ Page({
     const _ = db.command
     if (this.data.shijian == false) {
       db.collection("qyzx_texts").where({
-        _id: _.nin(idd)
+        _id: _.nin(idd),
+        deleted: false
       }).get().then(res => {
         console.log(res)
         for (var index in res.data) {
@@ -61,7 +62,8 @@ Page({
       })
     } else {
       db.collection("qyzx_texts").where({
-        _id: _.nin(idd)
+        _id: _.nin(idd),
+        deleted: false
       }).orderBy('due', 'desc').get().then(res => {
         console.log(res)
         for (var index in res.data) {
@@ -127,15 +129,17 @@ Page({
     const texts_collection = app.globalData.db.collection('qyzx_texts')
 
     if (detail.key == "全部") {
-      texts_collection.orderBy('ding', 'desc')
-        .get().then(res => {
+      texts_collection.orderBy('ding', 'desc').where({
+        deleted: false
+      }).get().then(res => {
           this.setData({
             textList: res.data
           })
         })
     } else {
       texts_collection.where({
-          classes: detail.key
+          classes: detail.key,
+          deleted: false
         }).orderBy('ding', 'desc')
         .get().then(res => {
           this.setData({
@@ -187,7 +191,9 @@ Page({
 
     const texts_collection = db.collection('qyzx_texts')
     if (this.data.current_scroll == "全部") {
-      texts_collection.orderBy('due', 'desc')
+      texts_collection.orderBy('due', 'desc').where({
+        deleted: false
+      })
         .get().then(res => {
           this.setData({
             textList: res.data
@@ -201,7 +207,9 @@ Page({
     } else {
       texts_collection.where({
           classes: this.data.current_scroll
-        }).orderBy('due', 'desc')
+      }).where({
+        deleted: false
+      }).orderBy('due', 'desc')
         .get().then(res => {
           this.setData({
             textList: res.data
@@ -228,8 +236,9 @@ Page({
     const texts_collection = db.collection('qyzx_texts')
 
     if (this.data.current_scroll == "全部") {
-      texts_collection.orderBy('ding', 'desc')
-        .get().then(res => {
+      texts_collection.orderBy('ding', 'desc').where({
+        deleted: false
+      }).get().then(res => {
           this.setData({
             textList: res.data
           })
@@ -243,7 +252,9 @@ Page({
     } else {
       texts_collection.where({
           classes: this.data.current_scroll
-        }).orderBy('ding', 'desc')
+      }).where({
+        deleted: false
+      }).orderBy('ding', 'desc')
         .get().then(res => {
           this.setData({
             textList: res.data
